@@ -1,13 +1,22 @@
 "use client";
 
 import { useFetchQuizList } from "@/hooks/useFetchQuiz";
+import { supabaseQuizService } from "@/services/supabaseQuizService";
+import { useMutation } from "@tanstack/react-query";
 import { BookOpen, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { QuizCard } from "./QuizCard";
 import { Button } from "./ui/button";
 
 export default function Quizzes() {
-  const { data: quizzes, isError, isLoading } = useFetchQuizList();
+  const { data: quizzes, isError, isLoading, refetch } = useFetchQuizList();
+  // const { mutate: handleDelete } = useMutation({
+  const { mutate: handleDelete } = useMutation({
+    mutationFn: (quizId: string) => supabaseQuizService.deleteQuiz(quizId),
+    onMutate: () => {
+      refetch();
+    },
+  });
   const { push } = useRouter();
 
   return (
@@ -41,7 +50,7 @@ export default function Quizzes() {
                   key={quiz.id}
                   quiz={quiz}
                   //   onEdit={handleEditQuiz}
-                  //   onDelete={handleDeleteQuiz}
+                  onDelete={handleDelete}
                 />
               ))}
             </div>

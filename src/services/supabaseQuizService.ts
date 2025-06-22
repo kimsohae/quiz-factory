@@ -1,3 +1,4 @@
+'use client';
 import { supabase } from "@/integrations/supabase/client";
 import { Quiz, Question, QuizResult } from "@/types/quiz";
 import { PostgrestError } from "@supabase/supabase-js";
@@ -234,19 +235,19 @@ export const supabaseQuizService = {
   async deleteQuiz(quizId: string): Promise<{ success: boolean; error?: string }> {
     try {
       // Delete questions first (due to foreign key constraint)
-      const { error: questionsError } = await supabase
-        .from('questions')
-        .delete()
-        .eq('quiz_id', quizId);
-
+      const { error: questionsError, data } = await supabase
+      .from('questions')
+      .delete()
+      .eq('quiz_id', quizId);
+      
       if (questionsError) throw questionsError;
-
+      
       // Delete quiz
-      const { error: quizError } = await supabase
-        .from('quizzes')
-        .delete()
-        .eq('id', quizId);
-
+      const { error: quizError, } = await supabase
+      .from('quizzes')
+      .delete()
+      .eq('id', quizId);
+      
       if (quizError) throw quizError;
 
       return { success: true };

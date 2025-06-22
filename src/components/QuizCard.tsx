@@ -12,10 +12,10 @@ import { Play, Edit, Trash2 } from "lucide-react";
 interface QuizCardProps {
   quiz: Quiz;
   // onEdit: (quiz: Quiz) => void;
-  // onDelete: (quizId: string) => void;
+  onDelete: (quizId: string) => void;
 }
 
-export const QuizCard = ({ quiz }: QuizCardProps) => {
+export const QuizCard = ({ quiz, onDelete }: QuizCardProps) => {
   // const navigate = useNavigate();
 
   const handlePlay = () => {
