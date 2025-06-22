@@ -1,5 +1,10 @@
 import QuizResultComponent from "@/components/quiz/QuizResult";
-// import { QueryClient } from "@tanstack/react-query";
+import { supabaseQuizService } from "@/services/supabaseQuizService";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 type Params = Promise<{
   testId: string;
@@ -9,23 +14,22 @@ type Params = Promise<{
 export default async function Page({ params }: { params: Params }) {
   const { testId, sessionId } = await params;
 
-  // const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: ["quizResult", testId, sessionId],
-  //   queryFn: () => supabaseQuizService.getQuizResult(testId, sessionId),
-  // });
-  // await queryClient.prefetchQuery({
-  //   queryKey: ["quiz", testId],
-  //   queryFn: () => supabaseQuizService.getQuiz(testId),
-  // });
+  await queryClient.prefetchQuery({
+    queryKey: ["quizResult", testId, sessionId],
+    queryFn: () => supabaseQuizService.getQuizResult(testId, sessionId),
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["quiz", testId],
+    queryFn: () => supabaseQuizService.getQuiz(testId),
+  });
 
   return (
-    <QuizResultComponent testId={testId} sessionId={sessionId} />
-    // // <HydrationBoundary state={dehydrate(queryClient)}>
-    //   {/* <Suspense fallback={<div>loading</div>}> */}
-
-    //   {/* </Suspense> */}
-    // {/* </HydrationBoundary> */}
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      {/* <Suspense fallback={<div>loading</div>}> */}
+      <QuizResultComponent testId={testId} sessionId={sessionId} />
+      {/* </Suspense> */}
+    </HydrationBoundary>
   );
 }
