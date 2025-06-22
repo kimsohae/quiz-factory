@@ -1,6 +1,6 @@
-'use client';
 import { supabase } from "@/integrations/supabase/client";
 import { Quiz, Question, QuizResult } from "@/types/quiz";
+import { PostgrestError } from "@supabase/supabase-js";
 
 export const supabaseQuizService = {
   async createQuiz(quiz: Quiz): Promise<{ success: boolean; error?: string; data?: Quiz }> {
@@ -44,8 +44,9 @@ export const supabaseQuizService = {
 
       return { success: true, data: quiz };
     } catch (error) {
-      console.error('Create quiz error:', error);
-      return { success: false, error: error.message };
+      const err = error as PostgrestError;
+      console.error('Create quiz error:', err);
+      return { success: false, error: err.details };
     }
   },
 
@@ -95,8 +96,9 @@ export const supabaseQuizService = {
 
       return { success: true, data: quiz };
     } catch (error) {
-      console.error('Update quiz error:', error);
-      return { success: false, error: error.message };
+      const err = error as PostgrestError;
+      console.error('Create quiz error:', err);
+      return { success: false, error: err.details };
     }
   },
 
@@ -121,31 +123,32 @@ export const supabaseQuizService = {
       const questions: Question[] = questionsData.map(q => ({
         id: q.id,
         question: q.question,
-        context: q.context,
+        context: q.context || '',
         options: Array.isArray(q.options) ? q.options.map(option => String(option)) : [],
         correctAnswer: q.correct_answer,
-        explanation: q.explanation,
-        correctRate: q.correct_rate
+        explanation: q.explanation || '',
+        correctRate: q.correct_rate || 0
       }));
 
       const quiz: Quiz = {
         id: quizData.id,
         title: quizData.title,
-        description: quizData.description,
-        thumbnail: quizData.thumbnail,
+        description: quizData.description || '',
+        thumbnail: quizData.thumbnail || '',
         questions,
         theme: typeof quizData.theme === 'object' && quizData.theme !== null 
           ? quizData.theme as { primaryColor: string }
           : { primaryColor: "#21CA86" },
         createdAt: new Date(quizData.created_at),
-        createdBy: quizData.created_by,
-        kakaoShareEnabled: quizData.kakao_share_enabled,
-        shuffleQuestions: quizData.shuffle_questions
+        createdBy: quizData.created_by || '',
+        kakaoShareEnabled: quizData.kakao_share_enabled|| false,
+        shuffleQuestions: quizData.shuffle_questions || false
       };
 
       return quiz;
     } catch (error) {
-      console.error('Get quiz error:', error);
+      const err = error as PostgrestError;
+      console.error('Create quiz error:', err);
       return null;
     }
   },
@@ -176,7 +179,7 @@ export const supabaseQuizService = {
         kakaoShareEnabled: quiz.kakao_share_enabled,
         shuffleQuestions: quiz.shuffle_questions,
         questionCount: quiz.questions?.[0]?.count || 0
-      }));
+      } as Quiz));
     } catch (error) {
       console.error('Get all quizzes error:', error);
       return [];
@@ -199,8 +202,9 @@ export const supabaseQuizService = {
 
       return { success: true };
     } catch (error) {
-      console.error('Save quiz result error:', error);
-      return { success: false, error: error.message };
+      const err = error as PostgrestError;
+      console.error('Create quiz error:', err);
+      return { success: false, error: err.details };
     }
   },
 
@@ -247,8 +251,9 @@ export const supabaseQuizService = {
 
       return { success: true };
     } catch (error) {
-      console.error('Delete quiz error:', error);
-      return { success: false, error: error.message };
+      const err = error as PostgrestError;
+      console.error('Create quiz error:', err);
+      return { success: false, error: err.details };
     }
   },
 

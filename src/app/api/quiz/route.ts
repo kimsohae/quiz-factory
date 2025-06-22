@@ -22,8 +22,8 @@ const FEW_SHOT_PROMPT: ChatCompletionMessageParam[] = [
                   },
                   {
                     "question": "지구를 도는 위성은 무엇인가요?",
-                    "options": ["화성", "달", "태양", "금성"],
-                    "correctAnswer": 2
+                    "options": ["화성", "태양", "달", "금성"],
+                    "correctAnswer": 2,
                     "explanation": "달은 지구를 공전하고 있어요."
                   }
                 ]
@@ -35,7 +35,6 @@ const FEW_SHOT_PROMPT: ChatCompletionMessageParam[] = [
 
 export async function POST(req: NextRequest): Promise<Response> {
   const { prompt } = await req.json();
-  let content;
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
@@ -48,7 +47,7 @@ export async function POST(req: NextRequest): Promise<Response> {
     ],
   });
 
-  content = completion.choices[0].message.content;
+  const content = completion.choices[0].message.content;
 
   return new Response(JSON.stringify({ content }), {
     status: 200,

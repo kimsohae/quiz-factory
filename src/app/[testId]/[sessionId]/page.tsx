@@ -5,7 +5,6 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { Suspense } from "react";
 
 type Params = Promise<{
   testId: string;

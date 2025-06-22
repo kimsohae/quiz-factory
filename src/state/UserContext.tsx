@@ -10,7 +10,7 @@ import React, {
 
 type UserContextType = {
   user: User;
-  setUser: Dispatch<SetStateAction<Partial<User>>>;
+  setUser: (param: Partial<User>) => void;
 };
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -23,7 +23,7 @@ export const initialUser: User = {
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUserInfo] = useState(initialUser);
 
-  const setUser = (param) => {
+  const setUser = (param: Partial<User>) => {
     setUserInfo((prev) => ({ ...prev, ...param }));
   };
 

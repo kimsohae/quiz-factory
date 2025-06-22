@@ -20,13 +20,13 @@ import { AIQuizGenerator } from "./quiz-creator/AIQuizGenerator";
 import { QuestionEditor } from "./quiz-creator/QuestionEditor";
 import { useRouter } from "next/navigation";
 
-interface QuizCreatorProps {
-  // quiz?: Quiz;
-  // onSave: (quiz: Quiz) => void;
-  // onCancel: () => void;
-}
+// interface QuizCreatorProps {
+//   // quiz?: Quiz;
+//   // onSave: (quiz: Quiz) => void;
+//   // onCancel: () => void;
+// }
 
-export const QuizCreator = ({}: QuizCreatorProps) => {
+export const QuizCreator = () => {
   const {
     setUser,
     user: { progress },
@@ -104,11 +104,7 @@ export const QuizCreator = ({}: QuizCreatorProps) => {
   };
 
   const handleSave = useCallback(async () => {
-    console.log(1);
-    console.log(1);
-    console.log(title);
     if (!title.trim()) {
-      console.log("엥");
       toast({
         title: "제목을 입력해주세요",
         variant: "destructive",
@@ -117,7 +113,6 @@ export const QuizCreator = ({}: QuizCreatorProps) => {
     }
 
     if (questions.length === 0) {
-      console.log("엥2");
       toast({
         title: "최소 1개의 문항을 추가해주세요",
         variant: "destructive",
@@ -125,10 +120,8 @@ export const QuizCreator = ({}: QuizCreatorProps) => {
       return;
     }
 
-    console.log(2);
     setIsSaving(true);
 
-    console.log(3);
     const quizData: Quiz = {
       id: Date.now().toString(),
       title,
@@ -141,18 +134,8 @@ export const QuizCreator = ({}: QuizCreatorProps) => {
       createdAt: new Date(),
     };
 
-    console.log("heyehy");
-    console.log(4);
-
     try {
       let result;
-
-      console.log(quizData);
-      // if (quiz?.id) {
-      // Update existing quiz
-      // result = await supabaseQuizService.updateQuiz(quizData);
-      // } else {
-      // Create new quiz
       result = await supabaseQuizService.createQuiz(quizData);
       // }
 
@@ -173,7 +156,7 @@ export const QuizCreator = ({}: QuizCreatorProps) => {
       console.error("Save error:", error);
       toast({
         title: "저장 실패",
-        description: error.message || "퀴즈 저장 중 오류가 발생했습니다.",
+        description: "퀴즈 저장 중 오류가 발생했습니다.",
         variant: "destructive",
       });
     } finally {
