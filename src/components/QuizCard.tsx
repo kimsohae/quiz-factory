@@ -25,7 +25,11 @@ export const QuizCard = ({ quiz, onDelete }: QuizCardProps) => {
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
       {/* Thumbnail */}
-      <div className="h-32 relative">
+      <div
+        className="h-32 relative hover:cursor-pointer"
+        role={"button"}
+        onClick={handlePlay}
+      >
         {quiz.thumbnail ? (
           <img
             src={quiz.thumbnail}
@@ -42,7 +46,7 @@ export const QuizCard = ({ quiz, onDelete }: QuizCardProps) => {
             {quiz.title}
           </div>
         )}
-        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 bg-black/10 hover:bg-transparent"></div>
       </div>
 
       <CardHeader className="pb-3">
