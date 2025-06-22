@@ -1,3 +1,4 @@
+'use client';
 import { supabase } from "@/integrations/supabase/client";
 import { Quiz, Question, QuizResult } from "@/types/quiz";
 import { PostgrestError } from "@supabase/supabase-js";
