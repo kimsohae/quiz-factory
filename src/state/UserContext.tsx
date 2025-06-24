@@ -17,7 +17,6 @@ const UserContext = createContext<UserContextType | null>(null);
 export const initialUser: User = {
   progress: 0,
   score: 0,
-  // selectedAnswers: [],
 };
 
 export function UserProvider({ children }: { children: React.ReactNode }) {

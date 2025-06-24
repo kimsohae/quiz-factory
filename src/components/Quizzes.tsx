@@ -2,11 +2,31 @@
 
 import { useFetchQuizList } from "@/hooks/useFetchQuiz";
 import { supabaseQuizService } from "@/services/supabaseQuizService";
+import { Quiz } from "@/types/quiz";
 import { useMutation } from "@tanstack/react-query";
 import { BookOpen, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { QuizCard } from "./QuizCard";
 import { Button } from "./ui/button";
+
+const ECONOMIC_MURY: { quiz: Quiz; url: string } = {
+  quiz: {
+    id: "economic-mury",
+    title: "경제머리 테스트",
+    description: "나의 경제머리 상태는...?",
+    thumbnail: "https://economic-mury.site/img/OG.png", // 썸네일 URL 추가
+    questions: [],
+    theme: {
+      primaryColor: "",
+    },
+    createdAt: new Date(2025, 3, 23),
+    createdBy: "",
+    kakaoShareEnabled: true,
+    shuffleQuestions: false, // 문제 순서 섞기 옵션 추가
+    questionCount: 10, // 퀴즈 목록에서 문제 개수 표시용
+  },
+  url: "https://economic-mury.site",
+};
 
 export default function Quizzes() {
   const { data: quizzes, isError, isLoading, refetch } = useFetchQuizList();
@@ -45,6 +65,13 @@ export default function Quizzes() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <QuizCard
+                quiz={ECONOMIC_MURY.quiz}
+                url={ECONOMIC_MURY.url}
+                isPremium={true}
+                //   onEdit={handleEditQuiz}
+                onDelete={handleDelete}
+              />
               {quizzes.map((quiz) => (
                 <QuizCard
                   key={quiz.id}

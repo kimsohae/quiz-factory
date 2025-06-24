@@ -12,19 +12,22 @@ import { Play, Edit, Trash2 } from "lucide-react";
 interface QuizCardProps {
   quiz: Quiz;
   // onEdit: (quiz: Quiz) => void;
+  url?: string;
+  isPremium?: boolean;
   onDelete: (quizId: string) => void;
 }
 
-export const QuizCard = ({ quiz, onDelete }: QuizCardProps) => {
+export const QuizCard = ({ quiz, url, isPremium, onDelete }: QuizCardProps) => {
   // const navigate = useNavigate();
 
   const handlePlay = () => {
-    window.open(`/${quiz.id}`, "_blank");
+    window.open(`${url ?? `/${quiz.id}`}`, "_blank");
   };
 
   return (
-    <Card className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+    <Card className=" hover:shadow-lg transition-shadow duration-300 overflow-hidden">
       {/* Thumbnail */}
+
       <div
         className="h-32 relative hover:cursor-pointer"
         role={"button"}
@@ -46,13 +49,19 @@ export const QuizCard = ({ quiz, onDelete }: QuizCardProps) => {
             {quiz.title}
           </div>
         )}
+        {isPremium && (
+          <div className="absolute bottom-2 right-2 h-8 bg-white border-primary border-2 z-1 px-2 rounded-full text-primary font-bold">
+            {" "}
+            premium{" "}
+          </div>
+        )}
         <div className="absolute inset-0 bg-black/10 hover:bg-transparent"></div>
       </div>
 
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <CardDescription className="line-clamp-2">
+            <CardDescription className="line-clamp-2 font-semibold">
               {quiz.description}
             </CardDescription>
           </div>

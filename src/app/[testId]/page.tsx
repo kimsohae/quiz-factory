@@ -15,11 +15,11 @@ export default function Page() {
     <>
       <div className="relative w-full flex flex-col items-center mb-16">
         <div
-          className={`font-moneygraphy text-5xl font-semibold flex flex-col items-center gap-4`}
+          className={`text-5xl font-semibold flex flex-col items-center gap-4 w-[90%]`}
         >
           <RoundedSquareWithEyesCanvas color={quiz.theme.primaryColor} />
-          <div className="">{quiz.title}</div>
-          <span className="block text-xl font-medium text-gray-400 mb-3 font-pretendard">
+          <div className="break-keep text-center">{quiz.title}</div>
+          <span className="block text-xl font-medium text-gray-400 mb-3 font-pretendard break-keep text-center">
             {quiz.description}
           </span>
         </div>

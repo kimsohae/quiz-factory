@@ -101,7 +101,7 @@ export default function QuizAnswer({
 
   return (
     <>
-      <div className="h-[70%] py-8 w-full overflow-y-auto px-8">
+      <div className="h-[70%] pt-8 pb-12 w-full overflow-y-auto px-8">
         <div className="flex flex-col gap-4 m-auto justify-center w-full items-center">
           {options.map((option, idx) => (
             <Button
@@ -118,7 +118,7 @@ export default function QuizAnswer({
           ))}
         </div>
       </div>
-      <div className="absolute bottom-0 w-full flex justify-center items-center bg-white my-[30px] px-4">
+      <div className="absolute bottom-0 w-full flex justify-center items-center bg-white pb-[30px] px-4">
         <Button
           className={cn(`w-full h-12 text-md rounded-xl`)}
           style={{
