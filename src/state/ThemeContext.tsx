@@ -1,12 +1,6 @@
 "use client";
 import { QuizTheme } from "@/types/quiz";
-import React, {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
+import React, { createContext, useContext, useState } from "react";
 
 type ThemeContextType = {
   theme: QuizTheme;

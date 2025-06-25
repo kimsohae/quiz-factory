@@ -34,7 +34,7 @@ export default function QuizAnswer({
   const { testId } = useParams<{ testId: string }>();
   const currentQuiz = questions[progress];
   const isLastQuiz = progress === questions.length - 1;
-  const { options, correctAnswer } = currentQuiz;
+  const { options } = currentQuiz;
 
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
@@ -76,8 +76,6 @@ export default function QuizAnswer({
         }
         return prev;
       }, 0);
-
-      console.log(newScore);
 
       const newResult = {
         quizId: testId,

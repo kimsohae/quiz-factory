@@ -2,9 +2,9 @@
 import { Button, ButtonProps } from "@/components/ui/button";
 
 // const KAKAO_JS_KEY = process.env.NEXT_PUBLIC_KAKAO_JS_KEY || "";
-const initKakao = () => {
-  // window.Kakao.init(KAKAO_JS_KEY);
-};
+// const initKakao = () => {
+// window.Kakao.init(KAKAO_JS_KEY);
+// };
 
 export type ShareOptions = {
   objectType: "feed";

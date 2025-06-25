@@ -4,10 +4,9 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Play, Edit, Trash2 } from "lucide-react";
+import { Play } from "lucide-react";
 
 interface QuizCardProps {
   quiz: Quiz;
@@ -17,7 +16,7 @@ interface QuizCardProps {
   onDelete: (quizId: string) => void;
 }
 
-export const QuizCard = ({ quiz, url, isPremium, onDelete }: QuizCardProps) => {
+export const QuizCard = ({ quiz, url, isPremium }: QuizCardProps) => {
   // const navigate = useNavigate();
 
   const handlePlay = () => {

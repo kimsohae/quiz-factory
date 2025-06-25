@@ -17,7 +17,11 @@ import { Trash2 } from "lucide-react";
 interface QuestionEditorProps {
   question: Question;
   questionIndex: number;
-  onUpdateQuestion: (index: number, field: keyof Question, value: any) => void;
+  onUpdateQuestion: (
+    index: number,
+    field: keyof Question,
+    value: unknown
+  ) => void;
   onUpdateOption: (
     questionIndex: number,
     optionIndex: number,

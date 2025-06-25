@@ -1,7 +1,9 @@
 import Quizzes from "@/components/Quizzes";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
@@ -9,7 +11,10 @@ export default function Home() {
       <div className="bg-gray-100 text-white">
         <div className="max-w-6xl mx-auto px-6 py-16">
           <div className="flex flex-col justify-center items-center">
-            <img
+            <Image
+              width={160}
+              height={160}
+              alt="logo"
               src="/title_logo.webp"
               className="w-40 h-40 animate-[float_3s_infinite_ease-in-out]"
             />

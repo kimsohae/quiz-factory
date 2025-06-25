@@ -13,12 +13,12 @@ interface QuizSettingsProps {
 
 export const QuizSettings = ({
   theme,
-  shuffleQuestions,
-  kakaoShareEnabled,
+  // shuffleQuestions,
+  // kakaoShareEnabled,
   onThemeChange,
-  onShuffleQuestionsChange,
-  onKakaoShareEnabledChange,
-}: QuizSettingsProps) => {
+}: // onShuffleQuestionsChange,
+// onKakaoShareEnabledChange,
+QuizSettingsProps) => {
   return (
     <div className="space-y-4">
       <div>

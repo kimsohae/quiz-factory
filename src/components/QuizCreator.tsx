@@ -164,18 +164,6 @@ export const QuizCreator = () => {
     }
   }, [title, questions]);
 
-  // Create preview quiz data
-  const previewQuiz: Quiz = {
-    id: "preview",
-    title,
-    description,
-    thumbnail,
-    questions,
-    theme,
-    createdAt: new Date(),
-    shuffleQuestions,
-  };
-
   return (
     <div className="max-w-7xl mx-auto mt-8">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">

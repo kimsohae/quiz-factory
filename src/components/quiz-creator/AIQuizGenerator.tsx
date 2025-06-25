@@ -38,6 +38,7 @@ export const AIQuizGenerator = ({
         description: `${generatedQuestions.length}개의 문항이 추가되었습니다.`,
       });
     } catch (error) {
+      console.error(error);
       toast({
         title: "생성 실패",
         description: "퀴즈 생성 중 오류가 발생했습니다.",

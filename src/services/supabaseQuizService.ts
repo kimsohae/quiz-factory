@@ -7,14 +7,14 @@ export const supabaseQuizService = {
   async createQuiz(quiz: Quiz): Promise<{ success: boolean; error?: string; data?: Quiz }> {
     try {
       // Insert quiz
-      const { data: quizData, error: quizError } = await supabase
+      const { error: quizError } = await supabase
         .from('quizzes')
         .insert({
           id: quiz.id,
           title: quiz.title,
           description: quiz.description,
           thumbnail: quiz.thumbnail,
-          theme: quiz.theme as any,
+          theme: quiz.theme,
           kakao_share_enabled: quiz.kakaoShareEnabled,
           shuffle_questions: quiz.shuffleQuestions,
           created_by: quiz.createdBy
@@ -60,7 +60,7 @@ export const supabaseQuizService = {
           title: quiz.title,
           description: quiz.description,
           thumbnail: quiz.thumbnail,
-          theme: quiz.theme as any,
+          theme: quiz.theme,
           kakao_share_enabled: quiz.kakaoShareEnabled,
           shuffle_questions: quiz.shuffleQuestions
         })
@@ -235,7 +235,7 @@ export const supabaseQuizService = {
   async deleteQuiz(quizId: string): Promise<{ success: boolean; error?: string }> {
     try {
       // Delete questions first (due to foreign key constraint)
-      const { error: questionsError, data } = await supabase
+      const { error: questionsError } = await supabase
       .from('questions')
       .delete()
       .eq('quiz_id', quizId);

@@ -29,7 +29,7 @@ const ECONOMIC_MURY: { quiz: Quiz; url: string } = {
 };
 
 export default function Quizzes() {
-  const { data: quizzes, isError, isLoading, refetch } = useFetchQuizList();
+  const { data: quizzes, isLoading, refetch } = useFetchQuizList();
   // const { mutate: handleDelete } = useMutation({
   const { mutate: handleDelete } = useMutation({
     mutationFn: (quizId: string) => supabaseQuizService.deleteQuiz(quizId),

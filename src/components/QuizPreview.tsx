@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Eye, Play } from "lucide-react";
+import { Eye } from "lucide-react";
 import QuizLayout from "./quiz/QuizLayout";
 import { Question, QuizTheme } from "@/types/quiz";
 import ProgressBar from "./quiz/ProgressBar";
