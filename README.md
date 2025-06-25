@@ -5,6 +5,8 @@ Quiz Factory는 간단한 퀴즈를 생성하고 풀 수 있는 웹 기반 애�
 
 생성된 퀴즈는 서브도메인 url으로 접근하여 참여할 수 있으며, 결과 페이지에서 점수를 확인할 수 있습니다.
 
+Lovable으로 초기 UI 구축 후 Next.js로 프로젝트를 전환하였습니다. 
+
 ##  주요 기능
 **- 퀴즈 생성**
   - 제목, 설명 설정
@@ -17,7 +19,7 @@ Quiz Factory는 간단한 퀴즈를 생성하고 풀 수 있는 웹 기반 애�
   - 결과 페이지: 점수 표시
 
 ## 기술 스택
-- **Frontend**: React, TypeScript, Next.js, TailwindCSS
+- **Frontend**: React, TypeScript, Next.js, TailwindCSS, Lovable
 - **AI API**: OpenAI
 - **Database**: Supabase
 - **Deployment**: Vercel
