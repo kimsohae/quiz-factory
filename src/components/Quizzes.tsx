@@ -23,7 +23,7 @@ const ECONOMIC_MURY: { quiz: Quiz; url: string } = {
     createdBy: "",
     kakaoShareEnabled: true,
     shuffleQuestions: false, // 문제 순서 섞기 옵션 추가
-    questionCount: 10, // 퀴즈 목록에서 문제 개수 표시용
+    // questionCount: 10, // 퀴즈 목록에서 문제 개수 표시용
   },
   url: "https://economic-mury.site",
 };

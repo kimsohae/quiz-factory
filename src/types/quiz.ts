@@ -29,7 +29,7 @@ export interface QuizResult {
  */
 
 export const questionSchema = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   question: z.string().min(1, "질문을 입력해주세요"),
   options: z.array(z.string().min(1, "선택지를 입력해주세요")).min(2, "최소 2개의 선택지가 필요합니다"),
   correctAnswer: z.number().min(0, "정답을 선택해주세요"),
@@ -103,14 +103,14 @@ export type QuizTheme = z.infer<typeof quizThemeSchema>;
 // export type Category = 'macro' | 'savings' | 'pension' | 'realEstate' | 'stocks' | 'finance';
 
 /** API RESPONSE */
-// export type UserResult = {
-//     id: string;
-//     score: number;
-//     rank: Rank;
-//     ranking: {
-//       total: number;
-//       position: number;
-//     }
-//     wrongAnswers: Answer[];
-//     analysis?: string;
-// }
+export type UserResult = {
+    id: string;
+    score: number;
+    // rank: Rank;
+    ranking: {
+      total: number;
+      position: number;
+    }
+    wrongAnswers: Answer[];
+    analysis?: string;
+}

@@ -29,11 +29,11 @@ export const supabaseQuizService = {
         id: question.id,
         quiz_id: quiz.id,
         question: question.question,
-        context: question.context,
+        // context: question.context,
         options: question.options,
         correct_answer: question.correctAnswer,
         explanation: question.explanation,
-        correct_rate: question.correctRate,
+        // correct_rate: question.correctRate,
         original_order: index
       }));
 
@@ -81,11 +81,11 @@ export const supabaseQuizService = {
         id: question.id,
         quiz_id: quiz.id,
         question: question.question,
-        context: question.context,
+        // context: question.context,
         options: question.options,
         correct_answer: question.correctAnswer,
         explanation: question.explanation,
-        correct_rate: question.correctRate,
+        // correct_rate: question.correctRate,
         original_order: index
       }));
 

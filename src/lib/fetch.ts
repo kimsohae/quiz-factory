@@ -56,13 +56,13 @@ export async function updateUserResult(userId: string, userData: User) {
 }
 
 export async function fetchResultAnalysis(userResult: UserResult, wrongQuizList:Quiz[]) {
-  const { id: userId, score, rank } = userResult;
+  const { id: userId, score } = userResult;
   // TODO: 10 -> 퀴즈리스트에서 전체 퀴즈 목록, 길이 읽어와 상수화
   const wrongAnswerString = '';
   wrongQuizList.forEach(() => {
     // wrongAnswerString += `&category=${getCategoryName(quiz.category)}`;
   })
-  const response = await fetchRetry(`/analysis/${userId}?score=${score}&rank=${rank}${wrongAnswerString}`);
+  const response = await fetchRetry(`/analysis/${userId}?score=${score}${wrongAnswerString}`);
   if (!response) {
     throw new Error("Failed to fetch Analysis");
   }
