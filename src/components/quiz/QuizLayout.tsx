@@ -17,13 +17,12 @@ export default function QuizLayout({
     setUser,
   } = useUser();
   const { primaryColor } = theme;
-
   const currentQuiz = questions[currentIndex];
 
   useEffect(() => {
     // celanup: 점수/진행도 초기화
     return () => setUser(initialUser);
-  }, [setUser]);
+  }, []);
 
   if (!currentQuiz) {
     return <div>Quiz not found</div>;
