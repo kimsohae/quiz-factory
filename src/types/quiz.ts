@@ -13,8 +13,6 @@ export type User = {
 };
 
 
-
-
 export interface QuizResult {
   quizId: string;
   answers: number[];
@@ -35,6 +33,7 @@ export const questionSchema = z.object({
   correctAnswer: z.number().min(0, "정답을 선택해주세요"),
   explanation: z.string().optional(),
 });
+
 
 const quizThemeSchema = z.object({
   primaryColor: z.string().min(1),
@@ -57,13 +56,31 @@ export const quizSchema = z.object({
 
 
 
-
+export const quizFormSchema = quizSchema.pick({
+  title: true,
+  description: true,
+  questions: true,
+  theme: true,
+})
 
 
 export type Quiz = z.infer<typeof quizSchema>;
 export type Question = z.infer<typeof questionSchema>;
 export type QuizTheme = z.infer<typeof quizThemeSchema>;
 
+export type QuizForm = z.infer<typeof quizFormSchema>;
+
+
+// export const QuestionFormSchema = questionSchema.pick({
+//   question: true,
+//   options: true,
+//   correctAnswer: true,
+//   explanation: true
+// })
+
+
+
+// export type QuestionForm = z.infer<typeof QuestionFormSchema>;
 
 // export type Question = {
 //   id: string;

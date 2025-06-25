@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Quiz } from "@/types/quiz";
+import { QuizForm } from "@/types/quiz";
 import { Control } from "react-hook-form";
 import {
   FormControl,
@@ -11,7 +11,7 @@ import {
 } from "../ui/form";
 
 interface QuizBasicInfoProps {
-  control: Control<Quiz>;
+  control: Control<QuizForm>;
 }
 
 export const QuizBasicInfo = ({ control }: QuizBasicInfoProps) => {

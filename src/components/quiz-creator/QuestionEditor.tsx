@@ -19,10 +19,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Control, useFormContext } from "react-hook-form";
-import { Quiz } from "@/types/quiz";
+import { QuizForm } from "@/types/quiz";
 
 interface QuestionEditorProps {
-  control: Control<Quiz>;
+  control: Control<QuizForm>;
   questionIndex: number;
   onRemoveQuestion: (index: number) => void;
 }
@@ -32,7 +32,7 @@ export const QuestionEditor = ({
   questionIndex,
   onRemoveQuestion,
 }: QuestionEditorProps) => {
-  const { setValue, watch } = useFormContext<Quiz>();
+  const { setValue, watch } = useFormContext<QuizForm>();
   const watchedQuestion = watch(`questions.${questionIndex}`);
   const currentOptions = watchedQuestion?.options || ["", ""];
 

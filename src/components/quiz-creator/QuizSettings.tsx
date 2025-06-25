@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
-import { Quiz } from "@/types/quiz";
+import { QuizForm } from "@/types/quiz";
 import {
   FormControl,
   FormField,
@@ -10,7 +10,7 @@ import {
 } from "../ui/form";
 
 interface QuizSettingsProps {
-  control: Control<Quiz>;
+  control: Control<QuizForm>;
 }
 
 export const QuizSettings = ({

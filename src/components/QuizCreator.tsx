@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useId, useState } from "react";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus, Loader2 } from "lucide-react";
 import { QuizPreview } from "./QuizPreview";
-import { Question, Quiz, quizSchema } from "@/types/quiz";
+import { Question, QuizForm, quizFormSchema } from "@/types/quiz";
 import { useUser } from "@/state/UserContext";
 import { QuizBasicInfo } from "./quiz-creator/QuizBasicInfo";
 import { QuizSettings } from "./quiz-creator/QuizSettings";
@@ -29,18 +29,13 @@ import { toast } from "@/hooks/use-toast";
 //   // onCancel: () => void;
 // }
 
-const QUIZ_DEFAULT: Quiz = {
-  id: Date.now().toString(),
+const QUIZ_DEFAULT: QuizForm = {
   title: "",
   description: "",
-  thumbnail: "",
   questions: [],
   theme: {
     primaryColor: "#21CA86",
   },
-  kakaoShareEnabled: false,
-  shuffleQuestions: false,
-  createdAt: new Date(),
 };
 
 export const QuizCreator = () => {
@@ -51,8 +46,8 @@ export const QuizCreator = () => {
   const [isSaving, setIsSaving] = useState(false);
   const { push } = useRouter();
 
-  const form = useForm<Quiz>({
-    resolver: zodResolver(quizSchema),
+  const form = useForm<QuizForm>({
+    resolver: zodResolver(quizFormSchema),
     defaultValues: QUIZ_DEFAULT,
   });
 
@@ -68,7 +63,7 @@ export const QuizCreator = () => {
 
   const addQuestion = () => {
     const newQuestion: Question = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       question: "",
       options: ["", ""],
       correctAnswer: 0,
@@ -93,7 +88,7 @@ export const QuizCreator = () => {
     setValue("questions", [...currentQuestions, ...generatedQuestions]);
   };
 
-  const onSubmit = async (data: Quiz) => {
+  const onSubmit = async (data: QuizForm) => {
     // question 길이 0일때 에러 메시지 표기
     if (data.questions.length === 0) {
       setError("questions", {
@@ -104,8 +99,7 @@ export const QuizCreator = () => {
     }
 
     setIsSaving(true);
-    const quizData: Quiz = {
-      id: "",
+    const quizData: QuizForm = {
       title: data.title,
       description: data.description,
       // thumbnail: '', // 현재 Thumbnail 비활성화
@@ -113,9 +107,6 @@ export const QuizCreator = () => {
       theme: {
         primaryColor: data.theme.primaryColor,
       },
-      // kakaoShareEnabled:
-      // shuffleQuestions,
-      createdAt: new Date(),
     };
     try {
       let result;
@@ -204,15 +195,17 @@ export const QuizCreator = () => {
               )}
             </div>
 
-            {(watchedValues.questions || []).map((q, questionIndex) => (
-              <Card key={q.id || questionIndex}>
-                <QuestionEditor
-                  control={control}
-                  questionIndex={questionIndex}
-                  onRemoveQuestion={removeQuestion}
-                />
-              </Card>
-            ))}
+            {(watchedValues.questions || []).map((q, questionIndex) => {
+              return (
+                <Card key={q.id}>
+                  <QuestionEditor
+                    control={control}
+                    questionIndex={questionIndex}
+                    onRemoveQuestion={removeQuestion}
+                  />
+                </Card>
+              );
+            })}
 
             <Button type="button" onClick={addQuestion}>
               <Plus className="w-4 h-4 mr-2" />
