@@ -31,7 +31,7 @@ export default function QuizResultComponent({ testId, sessionId }: Props) {
     (question, idx) => question.correctAnswer !== quizResult.answers[idx]
   );
   return (
-    <section className="h-full overflow-y-scroll w-full">
+    <section className="h-full overflow-y-auto w-full">
       <div className="text-md mt-4 h-fit w-full text-center">{title}</div>
       <div className="pt-12 pb-8">
         <div className="flex flex-col items-center ">
