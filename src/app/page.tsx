@@ -14,6 +14,7 @@ export default function Home() {
             <Image
               width={160}
               height={160}
+              priority
               alt="logo"
               src="/title_logo.webp"
               className="w-40 h-40 animate-[float_3s_infinite_ease-in-out]"

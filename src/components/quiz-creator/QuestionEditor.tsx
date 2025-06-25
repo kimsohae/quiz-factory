@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Trash2 } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -9,36 +11,54 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { Trash2 } from "lucide-react";
-import { Question } from "@/types/quiz";
-import { Trash2 } from "lucide-react";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Control, useFormContext } from "react-hook-form";
+import { Quiz } from "@/types/quiz";
 
 interface QuestionEditorProps {
-  question: Question;
+  control: Control<Quiz>;
   questionIndex: number;
-  onUpdateQuestion: (
-    index: number,
-    field: keyof Question,
-    value: unknown
-  ) => void;
-  onUpdateOption: (
-    questionIndex: number,
-    optionIndex: number,
-    value: string
-  ) => void;
-  onUpdateOptionCount: (questionIndex: number, count: number) => void;
   onRemoveQuestion: (index: number) => void;
 }
 
 export const QuestionEditor = ({
-  question,
+  control,
   questionIndex,
-  onUpdateQuestion,
-  onUpdateOption,
-  onUpdateOptionCount,
   onRemoveQuestion,
 }: QuestionEditorProps) => {
+  const { setValue, watch } = useFormContext<Quiz>();
+  const watchedQuestion = watch(`questions.${questionIndex}`);
+  const currentOptions = watchedQuestion?.options || ["", ""];
+
+  const updateOptionCount = (count: number) => {
+    let newOptions = [...currentOptions];
+
+    if (count > newOptions.length) {
+      // Add empty options
+      while (newOptions.length < count) {
+        newOptions.push("");
+      }
+    } else if (count < newOptions.length) {
+      // Remove options
+      newOptions = newOptions.slice(0, count);
+      // Adjust correct answer if it's beyond the new range
+      if ((watchedQuestion?.correctAnswer || 0) >= count) {
+        setValue(
+          `questions.${questionIndex}.correctAnswer`,
+          Math.max(0, count - 1)
+        );
+      }
+    }
+
+    setValue(`questions.${questionIndex}.options`, newOptions);
+  };
+
   return (
     <>
       <CardHeader>
@@ -48,32 +68,33 @@ export const QuestionEditor = ({
             variant="outline"
             size="sm"
             onClick={() => onRemoveQuestion(questionIndex)}
+            type="button"
           >
             <Trash2 className="w-4 h-4" />
           </Button>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div>
-          <Label>질문</Label>
-          <Textarea
-            value={question.question}
-            onChange={(e) =>
-              onUpdateQuestion(questionIndex, "question", e.target.value)
-            }
-            placeholder="질문을 입력하세요"
-            rows={2}
-          />
-        </div>
+        <FormField
+          control={control}
+          name={`questions.${questionIndex}.question`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>질문</FormLabel>
+              <FormControl>
+                <Textarea {...field} placeholder="질문을 입력하세요" rows={2} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <div className="flex items-center gap-4">
           <div>
             <Label>선택지 개수</Label>
             <Select
-              value={question.options.length.toString()}
-              onValueChange={(value) =>
-                onUpdateOptionCount(questionIndex, parseInt(value))
-              }
+              value={currentOptions.length.toString()}
+              onValueChange={(value) => updateOptionCount(parseInt(value))}
             >
               <SelectTrigger className="w-24">
                 <SelectValue />
@@ -90,43 +111,56 @@ export const QuestionEditor = ({
         <div>
           <Label>선택지</Label>
           <div className="space-y-2 mt-2">
-            {question.options.map((option, optionIndex) => (
+            {currentOptions.map((_, optionIndex) => (
               <div key={optionIndex} className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name={`correct-${questionIndex}`}
-                  checked={question.correctAnswer === optionIndex}
-                  onChange={() =>
-                    onUpdateQuestion(
-                      questionIndex,
-                      "correctAnswer",
-                      optionIndex
-                    )
-                  }
+                <FormField
+                  control={control}
+                  name={`questions.${questionIndex}.correctAnswer`}
+                  render={({ field: correctField }) => (
+                    <input
+                      type="radio"
+                      checked={correctField.value === optionIndex}
+                      onChange={() => correctField.onChange(optionIndex)}
+                    />
+                  )}
                 />
-                <Input
-                  value={option}
-                  onChange={(e) =>
-                    onUpdateOption(questionIndex, optionIndex, e.target.value)
-                  }
-                  placeholder={`선택지 ${optionIndex + 1}`}
-                  className="flex-1"
+                <FormField
+                  control={control}
+                  name={`questions.${questionIndex}.options.${optionIndex}`}
+                  render={({ field: optionField }) => (
+                    <FormItem className="flex-1">
+                      <FormControl>
+                        <Input
+                          {...optionField}
+                          placeholder={`선택지 ${optionIndex + 1}`}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
             ))}
           </div>
         </div>
-        <div>
-          <Label>해설</Label>
-          <Textarea
-            value={question.explanation || ""}
-            onChange={(e) =>
-              onUpdateQuestion(questionIndex, "explanation", e.target.value)
-            }
-            placeholder="정답에 대한 해설을 입력하세요"
-            rows={2}
-          />
-        </div>
+
+        <FormField
+          control={control}
+          name={`questions.${questionIndex}.explanation`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>해설</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  placeholder="정답에 대한 해설을 입력하세요"
+                  rows={2}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </CardContent>
     </>
   );

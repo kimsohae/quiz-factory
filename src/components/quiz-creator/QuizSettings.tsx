@@ -1,70 +1,77 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-// import { Switch } from "@/components/ui/switch";
+import { Control } from "react-hook-form";
+import { Quiz } from "@/types/quiz";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 
 interface QuizSettingsProps {
-  theme: { primaryColor: string };
-  shuffleQuestions: boolean;
-  kakaoShareEnabled: boolean;
-  onThemeChange: (theme: { primaryColor: string }) => void;
-  onShuffleQuestionsChange: (shuffle: boolean) => void;
-  onKakaoShareEnabledChange: (enabled: boolean) => void;
+  control: Control<Quiz>;
 }
 
 export const QuizSettings = ({
-  theme,
-  // shuffleQuestions,
-  // kakaoShareEnabled,
-  onThemeChange,
+  control,
 }: // onShuffleQuestionsChange,
 // onKakaoShareEnabledChange,
 QuizSettingsProps) => {
   return (
     <div className="space-y-4">
-      <div>
-        <Label>테마 색상</Label>
-        <div className="flex gap-4 mt-2">
-          <div>
-            <Input
-              id="primary-color"
-              type="color"
-              value={theme.primaryColor}
-              onChange={(e) =>
-                onThemeChange({ ...theme, primaryColor: e.target.value })
-              }
-              className="w-20 h-10"
-            />
-          </div>
-        </div>
-      </div>
+      <FormField
+        control={control}
+        name="theme.primaryColor"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>테마 색상</FormLabel>
+            <div className="flex gap-4 mt-2">
+              <FormControl>
+                <Input type="color" {...field} className="w-20 h-10" />
+              </FormControl>
+            </div>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      {/* <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-          <Label htmlFor="shuffle-questions">문제 순서 섞기</Label>
-          <p className="text-sm text-muted-foreground">
-            퀴즈를 풀 때마다 문제 순서를 랜덤하게 섞습니다
-          </p>
-        </div>
-        <Switch
-          id="shuffle-questions"
-          checked={shuffleQuestions}
-          onCheckedChange={onShuffleQuestionsChange}
-        />
-      </div>
+      {/* <FormField
+        control={control}
+        name="shuffleQuestions"
+        render={({ field }) => (
+          <FormItem className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <FormLabel>문제 순서 섞기</FormLabel>
+              <p className="text-sm text-muted-foreground">
+                퀴즈를 풀 때마다 문제 순서를 랜덤하게 섞습니다
+              </p>
+            </div>
+            <FormControl>
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
+            </FormControl>
+          </FormItem>
+        )}
+      />
 
-      <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-          <Label htmlFor="kakao-share">카카오톡 공유 버튼</Label>
-          <p className="text-sm text-muted-foreground">
-            퀴즈 결과 페이지에 카카오톡 공유 버튼을 표시합니다
-          </p>
-        </div>
-        <Switch
-          id="kakao-share"
-          checked={kakaoShareEnabled}
-          onCheckedChange={onKakaoShareEnabledChange}
-        />
-      </div> */}
+      <FormField
+        control={control}
+        name="kakaoShareEnabled"
+        render={({ field }) => (
+          <FormItem className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <FormLabel>카카오톡 공유 버튼</FormLabel>
+              <p className="text-sm text-muted-foreground">
+                퀴즈 결과 페이지에 카카오톡 공유 버튼을 표시합니다
+              </p>
+            </div>
+            <FormControl>
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
+            </FormControl>
+          </FormItem>
+        )}
+      /> */}
     </div>
   );
 };

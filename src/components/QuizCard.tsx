@@ -6,7 +6,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play, Trash2 } from "lucide-react";
 
 interface QuizCardProps {
   quiz: Quiz;
@@ -16,7 +16,7 @@ interface QuizCardProps {
   onDelete: (quizId: string) => void;
 }
 
-export const QuizCard = ({ quiz, url, isPremium }: QuizCardProps) => {
+export const QuizCard = ({ quiz, url, isPremium, onDelete }: QuizCardProps) => {
   // const navigate = useNavigate();
 
   const handlePlay = () => {
@@ -72,13 +72,13 @@ export const QuizCard = ({ quiz, url, isPremium }: QuizCardProps) => {
             {new Date(quiz.createdAt).toLocaleDateString()}
           </span>
           <div className="flex gap-2">
-            {/* <Button
+            <Button
               variant="outline"
               size="sm"
               onClick={() => onDelete(quiz.id)}
             >
               <Trash2 className="w-4 h-4" />
-            </Button> */}
+            </Button>
             <Button
               size="sm"
               onClick={handlePlay}

@@ -45,7 +45,7 @@ export default function QuizLayout({
             <div className="text-gray-900">
               {currentQuiz.question || "질문을 입력하세요"}
             </div>
-            {questions[currentIndex].context}
+            {/* {questions[currentIndex].context} */}
           </div>
         </div>
       </div>
