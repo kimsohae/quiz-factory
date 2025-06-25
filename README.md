@@ -7,6 +7,8 @@ Quiz Factory는 간단한 퀴즈를 생성하고 풀 수 있는 웹 기반 애�
 
 Lovable으로 초기 UI 구축 후 Next.js로 프로젝트를 전환하였습니다. 
 
+- url: https://quiz-factory.vercel.app/
+
 ##  주요 기능
 **- 퀴즈 생성**
   - 제목, 설명 설정
