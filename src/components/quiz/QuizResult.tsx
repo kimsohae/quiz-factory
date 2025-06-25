@@ -20,7 +20,7 @@ export default function QuizResultComponent({ testId, sessionId }: Props) {
     isError: isQuizError,
   } = useFetchQuiz();
 
-  if (isLoading || isLoadingQuiz) return <div>Loading..!?.</div>;
+  if (isLoading || isLoadingQuiz) return <div>Loading...</div>;
   if (isError || isQuizError || !quiz || !quizResult)
     return <div>Not found</div>;
 
