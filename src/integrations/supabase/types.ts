@@ -26,7 +26,7 @@ export type Database = {
           correct_answer: number
           correct_rate?: number | null
           explanation?: string | null
-          id: string
+          id?: string
           options: Json
           original_order: number
           question: string

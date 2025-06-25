@@ -19,7 +19,7 @@ import { QuestionEditor } from "./quiz-creator/QuestionEditor";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormField, FormMessage } from "./ui/form";
+import { Form } from "./ui/form";
 import { supabaseQuizService } from "@/services/supabaseQuizService";
 import { toast } from "@/hooks/use-toast";
 
@@ -105,7 +105,7 @@ export const QuizCreator = () => {
 
     setIsSaving(true);
     const quizData: Quiz = {
-      id: Date.now().toString(),
+      id: "",
       title: data.title,
       description: data.description,
       // thumbnail: '', // 현재 Thumbnail 비활성화

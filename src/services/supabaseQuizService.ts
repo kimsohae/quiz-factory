@@ -1,5 +1,6 @@
 'use client';
 import { supabase } from "@/integrations/supabase/client";
+import { generateRandomString } from "@/lib/utils";
 import { Quiz, Question, QuizResult } from "@/types/quiz";
 import { PostgrestError } from "@supabase/supabase-js";
 
@@ -7,10 +8,11 @@ export const supabaseQuizService = {
   async createQuiz(quiz: Quiz): Promise<{ success: boolean; error?: string; data?: Quiz }> {
     try {
       // Insert quiz
+      const quizId = generateRandomString();
       const { error: quizError } = await supabase
         .from('quizzes')
         .insert({
-          id: quiz.id,
+          id: quizId,
           title: quiz.title,
           description: quiz.description,
           thumbnail: quiz.thumbnail,
@@ -21,13 +23,13 @@ export const supabaseQuizService = {
         })
         .select()
         .single();
-
       if (quizError) throw quizError;
+
 
       // Insert questions
       const questionsToInsert = quiz.questions.map((question, index) => ({
-        id: question.id,
-        quiz_id: quiz.id,
+        // id: `${quiz.id}-${index}`, // auto-increment 활용
+        quiz_id: quizId,
         question: question.question,
         // context: question.context,
         options: question.options,
@@ -41,6 +43,9 @@ export const supabaseQuizService = {
         .from('questions')
         .insert(questionsToInsert);
 
+
+
+        console.log(questionsError)
       if (questionsError) throw questionsError;
 
       return { success: true, data: quiz };

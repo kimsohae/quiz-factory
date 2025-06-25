@@ -17,7 +17,6 @@ export const AIQuizGenerator = ({
   const [isGenerating, setIsGenerating] = useState(false);
 
   const generateFromAI = async () => {
-    console.log("////");
     if (!aiPrompt.trim()) {
       // toast({
       //   title: "프롬프트를 입력해주세요",
@@ -26,7 +25,6 @@ export const AIQuizGenerator = ({
       // });
       return;
     }
-    console.log("sdfsdfdsf");
 
     setIsGenerating(true);
     try {
