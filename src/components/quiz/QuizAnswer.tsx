@@ -58,7 +58,6 @@ export default function QuizAnswer({
       progress: newProgress,
     };
 
-    console.log(selectedIds, selectedIdx);
     const updatedSelectedAnswers = [...selectedIds, selectedIdx];
     setUser(updatedUser);
     setSelectedIds(updatedSelectedAnswers);

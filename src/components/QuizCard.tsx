@@ -72,13 +72,15 @@ export const QuizCard = ({ quiz, url, isPremium, onDelete }: QuizCardProps) => {
             {new Date(quiz.createdAt).toLocaleDateString()}
           </span>
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => onDelete(quiz.id)}
-            >
-              <Trash2 className="w-4 h-4" />
-            </Button>
+            {process.env.NODE_ENV === "development" && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onDelete(quiz.id)}
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            )}
             <Button
               size="sm"
               onClick={handlePlay}
