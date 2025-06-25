@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quiz Factory 
+Quiz Factory는 간단한 퀴즈를 생성하고 풀 수 있는 웹 기반 애플리케이션입니다. 
 
-## Getting Started
+사용자는 프롬프트를 사용하여 AI 기반으로 퀴즈를 생성할 수 있습니다. 
 
-First, run the development server:
+생성된 퀴즈는 서브도메인 url으로 접근하여 참여할 수 있으며, 결과 페이지에서 점수를 확인할 수 있습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Lovable으로 초기 UI 구축 후 Next.js로 프로젝트를 전환하였습니다. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##  주요 기능
+**- 퀴즈 생성**
+  - 제목, 설명 설정
+  - 다지선다형(2~4개 설정 가능)퀴즈 지원
+  - AI 기반 퀴즈 생성(openAI 라이브러리 사용)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**- 퀴즈 풀기**
+  - 랜덤생성된 퀴즈 아이디를 서브도메인으로 퀴즈별 url 생성
+  - 진행율 표시
+  - 결과 페이지: 점수 표시
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 기술 스택
+- **Frontend**: React, TypeScript, Next.js, TailwindCSS, Lovable
+- **AI API**: OpenAI
+- **Database**: Supabase
+- **Deployment**: Vercel
