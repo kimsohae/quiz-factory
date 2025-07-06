@@ -1,10 +1,8 @@
 import QuizResultComponent from "@/components/quiz/QuizResult";
+import { getQueryClient } from "@/lib/react-query/queryClient";
+import { queryKeys } from "@/lib/react-query/queryKey";
 import { supabaseQuizService } from "@/services/supabaseQuizService";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 type Params = Promise<{
   testId: string;
@@ -14,14 +12,14 @@ type Params = Promise<{
 export default async function Page({ params }: { params: Params }) {
   const { testId, sessionId } = await params;
 
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ["quizResult", testId, sessionId],
+  queryClient.prefetchQuery({
+    queryKey: queryKeys.quizResult.bySession(testId, sessionId),
     queryFn: () => supabaseQuizService.getQuizResult(testId, sessionId),
   });
-  await queryClient.prefetchQuery({
-    queryKey: ["quiz", testId],
+  queryClient.prefetchQuery({
+    queryKey: queryKeys.quiz.byId(testId),
     queryFn: () => supabaseQuizService.getQuiz(testId),
   });
 
