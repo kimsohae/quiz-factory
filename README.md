@@ -21,7 +21,7 @@ Lovable으로 초기 UI 구축 후 Next.js로 프로젝트를 전환하였습니
   - 결과 페이지: 점수 표시
 
 ## 기술 스택
-- **Frontend**: React, TypeScript, Next.js, TailwindCSS, Lovable, Zustand, React Query
+- **Frontend**: React, TypeScript, Next.js, TailwindCSS, Lovable, React Query
 - **AI API**: OpenAI
 - **Database**: Supabase
 - **Deployment**: Vercel
